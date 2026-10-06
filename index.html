@@ -52,8 +52,6 @@ img{max-width:100%}
 .st-top{position:sticky;top:0;z-index:8;background:var(--st-bg);padding-top:var(--st-safe-top)}
 .st-vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .st-switch-row{box-sizing:border-box;max-width:496px;margin:0 auto;display:flex;align-items:center;gap:8px}
-.st-more{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--st-line);background:var(--st-surface);color:var(--st-muted);display:grid;place-items:center;padding:0;cursor:pointer}
-.st-more svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .st-switch{padding:10px 12px 8px}
 .st-switch-in{box-sizing:border-box;flex:1;min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:var(--st-surface);border:1px solid var(--st-line);border-radius:16px;padding:4px}
 .st-switch-in button{font:inherit;border:0;background:none;color:var(--st-muted);cursor:pointer;min-height:44px;border-radius:12px;padding:0 6px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;font-weight:600;white-space:nowrap;min-width:0;touch-action:manipulation}
@@ -83,6 +81,16 @@ img{max-width:100%}
 .st-btn:disabled{opacity:.4;cursor:default}
 .st-sheet textarea{font:inherit;width:100%;min-height:92px;padding:10px 12px;border:1px solid var(--st-line);border-radius:14px;background:var(--st-bg);color:var(--st-ink);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;resize:vertical}
 .st-toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));z-index:50;background:var(--st-ink);color:var(--st-bg);padding:10px 16px;border-radius:999px;font-size:13.5px;font-weight:600;max-width:calc(100% - 32px);text-align:center}
+
+/* Lối vào bảng Sao lưu và dữ liệu: nằm cuối trang Thiết lập / Báo cáo của từng sổ */
+#mod-a .st-data,#mod-b .st-data,#mod-c .st-data{box-sizing:border-box;font:inherit;width:100%;display:flex;align-items:center;gap:12px;text-align:left;min-height:64px;padding:12px 14px;margin:0;border:1px solid var(--st-line);border-radius:16px;background:var(--st-surface);color:var(--st-ink);cursor:pointer}
+#mod-b .st-data{margin-top:18px}
+#mod-c .st-data{margin-top:14px}
+.st-data>svg{flex:none;width:22px;height:22px;fill:none;stroke:var(--st-primary);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.st-data>svg.st-data-chev{width:18px;height:18px;stroke:var(--st-muted)}
+.st-data span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.st-data b{font-size:15px;font-weight:600;line-height:1.25}
+.st-data i{font-style:normal;font-size:13px;line-height:1.3;color:var(--st-muted)}
 
 /* ===== Sổ 1: Chi tiêu ===== */
 #mod-a{color-scheme:light}
@@ -914,7 +922,7 @@ html #mod-b .tabs .tab::before{content:none}
   <button type="button" role="tab" data-mod="chi-tieu" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9h-9V3Z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15V3.5Z"/></svg><span>Chi tiêu</span></button>
   <button type="button" role="tab" data-mod="quy-nhom" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.500" r="3"/><path d="M3.500 19c0-3 2.400-5 5.500-5s5.500 2 5.500 5"/><path d="M15.500 5.800a3 3 0 0 1 0 5.400M17 14.300c2.100.6 3.500 2.300 3.500 4.700"/></svg><span>Quỹ nhóm</span></button>
   <button type="button" role="tab" data-mod="chia-bill" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9.500 8h5M9.500 12h5"/></svg><span>Chia bill</span></button>
-</div><button type="button" class="st-more" id="stMore" aria-label="Sao lưu và dữ liệu" title="Sao lưu và dữ liệu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10M8 10.500l4 4 4-4"/><path d="M5 16v2.500A1.500 1.500 0 0 0 6.500 20h11a1.500 1.500 0 0 0 1.500-1.500V16"/></svg></button></div></nav>
+</div></div></nav>
 </div>
 
 <!-- ===== Sổ 1: Chi tiêu ===== -->
@@ -1006,6 +1014,7 @@ html #mod-b .tabs .tab::before{content:none}
   <section id="p-report" hidden>
     <div id="rBody"></div>
 
+  <button type="button" class="st-data" data-st-data><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10M8 10.500l4 4 4-4"/><path d="M5 16v2.500A1.500 1.500 0 0 0 6.500 20h11a1.500 1.500 0 0 0 1.500-1.500V16"/></svg><span><b>Sao lưu và dữ liệu</b><i>Lưu, khôi phục hoặc xoá dữ liệu của cả ba sổ</i></span><svg class="st-data-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
   <details class="foot">
     <summary>Sao lưu và khôi phục dữ liệu</summary>
     <p>Dữ liệu được lưu trong trình duyệt này. Để chuyển sang máy khác, bấm "Xuất dữ liệu", sao chép đoạn văn bản, rồi dán vào máy mới và bấm "Khôi phục".</p>
@@ -1131,6 +1140,7 @@ html #mod-b .tabs .tab::before{content:none}
       </div>
     </div>
     <div id="summary-box"></div>
+    <button type="button" class="st-data" data-st-data><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10M8 10.500l4 4 4-4"/><path d="M5 16v2.500A1.500 1.500 0 0 0 6.500 20h11a1.500 1.500 0 0 0 1.500-1.500V16"/></svg><span><b>Sao lưu và dữ liệu</b><i>Lưu, khôi phục hoặc xoá dữ liệu của cả ba sổ</i></span><svg class="st-data-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
     <div class="mini"><button class="lnk" id="bk-out">Sao lưu dữ liệu</button><span>·</span><button class="lnk" id="bk-open">Khôi phục</button></div>
     <div class="card" id="bk-box" style="display:none">
       <textarea id="bk" rows="3" placeholder="Dán dữ liệu sao lưu vào đây" aria-label="Dữ liệu sao lưu" autocapitalize="off" autocorrect="off" spellcheck="false"></textarea>
@@ -1302,7 +1312,7 @@ html #mod-b .tabs .tab::before{content:none}
   }
   function openSheet() { $('stText').value = ''; $('stRestore').disabled = true; $('stSheet').hidden = false; }
   function closeSheet() { $('stSheet').hidden = true; $('stText').value = ''; }
-  $('stMore').addEventListener('click', openSheet);
+  document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-st-data]')) openSheet(); });
   $('stClose').addEventListener('click', closeSheet);
   $('stSheet').addEventListener('click', function (e) { if (e.target === $('stSheet')) closeSheet(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('stSheet').hidden) closeSheet(); });
@@ -1349,7 +1359,7 @@ html #mod-b .tabs .tab::before{content:none}
     twoStep(b, function () { try { wipe(mod); } catch (err) {} reloadWith('Đã xoá dữ liệu ' + NAMES[mod], mod); });
   });
 
-  window.SoTien = { show: show, backup: collect };
+  window.SoTien = { show: show, backup: collect, openData: openSheet };
 
   /* ---------- chạy khi mất mạng ---------- */
   if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
@@ -1689,7 +1699,7 @@ function viewSettings(){
         <div class="icons" role="group" aria-label="Chọn biểu tượng">${PICK.map(k => `<button type="button" data-ic="${k}" aria-pressed="${k === newIcon}" aria-label="Biểu tượng ${k}" style="--c:${nextColor}">${icoHtml({id: k, name: k, color: nextColor})}</button>`).join('')}</div>
         <div class="inline"><input class="input" id="newCat" maxlength="24" placeholder="Tên mục" autocomplete="off"><button class="btn ghost">Thêm</button></div></form>
     </div>
-    <p class="note" style="padding:0 4px">${where} Xoá một mục riêng thì các khoản trong mục đó chuyển sang Khác.</p></div>`;
+    <p class="note" style="padding:0 4px">${where} Xoá một mục riêng thì các khoản trong mục đó chuyển sang Khác.</p><button type="button" class="st-data" data-st-data><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10M8 10.500l4 4 4-4"/><path d="M5 16v2.500A1.500 1.500 0 0 0 6.500 20h11a1.500 1.500 0 0 0 1.500-1.500V16"/></svg><span><b>Sao lưu và dữ liệu</b><i>Lưu, khôi phục hoặc xoá dữ liệu của cả ba sổ</i></span><svg class="st-data-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>`;
 }
 
 /* ---------- add / edit sheet ---------- */
