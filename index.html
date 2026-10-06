@@ -6,8 +6,8 @@
 <title>Sổ tiền</title>
 <meta name="description" content="Sổ tiền: theo dõi chi tiêu cá nhân, quản lý quỹ nhóm và chia bill trong một app.">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#F1F5F3" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0D1513" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F0F2F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#18191A" media="(prefers-color-scheme: dark)">
 <meta name="format-detection" content="telephone=no">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
@@ -23,10 +23,11 @@
 /* ===== Sổ tiền: khung chung cho ba sổ (Chi tiêu, Quỹ nhóm, Chia bill) ===== */
 :root{
   color-scheme:light;
-  --st-bg:#F1F5F3; --st-surface:#FFFFFF; --st-surface-2:#E6EEEA; --st-ink:#12211D; --st-muted:#5A6C66;
-  --st-line:#D7E1DC; --st-primary:#0C6A5B; --st-primary-ink:#F2FBF8; --st-primary-soft:#DDF0EA;
-  --st-danger:#B8322B; --st-danger-soft:#FBE4E2; --st-scrim:rgba(10,20,17,.48);
-  --st-shadow:0 10px 28px rgba(18,33,29,.14);
+  --st-bg:#F0F2F5; --st-surface:#FFFFFF; --st-surface-2:#E4E6EB; --st-ink:#1C1E21; --st-muted:#65676B;
+  --st-line:#DADDE1; --st-primary:#1877F2; --st-primary-ink:#FFFFFF; --st-primary-soft:#E7F3FF;
+  --st-hero-bg:#1877F2; --st-hero-ink:#FFFFFF; --st-hero-soft:rgba(255,255,255,.78); --st-hero-track:rgba(255,255,255,.26);
+  --st-danger:#C9302C; --st-danger-soft:#FDE7E6; --st-scrim:rgba(0,0,0,.48);
+  --st-shadow:0 10px 28px rgba(0,0,0,.16);
   --st-font-ui:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --st-font-display:"Bricolage Grotesque","Be Vietnam Pro",system-ui,sans-serif;
   --st-safe-top:env(safe-area-inset-top,0px);
@@ -34,32 +35,32 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --st-bg:#0D1513; --st-surface:#15211E; --st-surface-2:#1E2E2A; --st-ink:#E6EFEB; --st-muted:#93A69F;
-    --st-line:#26362F; --st-primary:#46BFA9; --st-primary-ink:#05231D; --st-primary-soft:#17342C;
-    --st-danger:#F0807A; --st-danger-soft:#3A1B19; --st-scrim:rgba(0,0,0,.62);
-    --st-shadow:0 10px 28px rgba(0,0,0,.45);
+    --st-bg:#18191A; --st-surface:#242526; --st-surface-2:#3A3B3C; --st-ink:#E4E6EB; --st-muted:#B0B3B8;
+    --st-line:#3E4042; --st-primary:#2D88FF; --st-primary-ink:#FFFFFF; --st-primary-soft:#263951;
+    --st-hero-bg:#1B5FC4; --st-hero-ink:#FFFFFF; --st-hero-soft:rgba(255,255,255,.76); --st-hero-track:rgba(255,255,255,.22);
+    --st-danger:#F0807A; --st-danger-soft:#3D2221; --st-scrim:rgba(0,0,0,.62);
+    --st-shadow:0 10px 28px rgba(0,0,0,.5);
   }
 }
-html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(72px + var(--st-safe-top));scroll-padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
+html{-webkit-text-size-adjust:100%;overflow-y:scroll;scrollbar-gutter:stable;scroll-padding-top:calc(80px + var(--st-safe-top));scroll-padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 body{margin:0;background:var(--st-bg);color:var(--st-ink);font-family:var(--st-font-ui);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 img{max-width:100%}
 [hidden]{display:none!important}
 .mod{box-sizing:border-box;min-height:60vh}
 
-/* Tên app */
-.st-head{box-sizing:border-box;max-width:520px;margin:0 auto;padding:calc(var(--st-safe-top) + 12px) 16px 2px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.st-brand{font-family:var(--st-font-display);font-weight:700;font-size:24px;letter-spacing:-.02em;line-height:1.1;margin:0}
-.st-more{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--st-line);background:var(--st-surface);color:var(--st-muted);display:grid;place-items:center;padding:0;cursor:pointer}
+/* Tên app và thanh chọn sổ: luôn đứng yên trên cùng */
+.st-top{position:sticky;top:0;z-index:8;background:var(--st-bg);padding-top:var(--st-safe-top)}
+.st-vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.st-switch-row{box-sizing:border-box;max-width:496px;margin:0 auto;display:flex;align-items:center;gap:8px}
+.st-more{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--st-line);background:var(--st-surface);color:var(--st-muted);display:grid;place-items:center;padding:0;cursor:pointer}
 .st-more svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-
-/* Chọn sổ: luôn nằm trên cùng khi cuộn */
-.st-switch{position:sticky;top:0;z-index:8;background:var(--st-bg);margin-top:calc(-1 * var(--st-safe-top));padding:calc(var(--st-safe-top) + 8px) 16px 8px}
-.st-switch-in{box-sizing:border-box;max-width:488px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:var(--st-surface);border:1px solid var(--st-line);border-radius:16px;padding:4px}
-.st-switch button{font:inherit;border:0;background:none;color:var(--st-muted);cursor:pointer;min-height:44px;border-radius:12px;padding:0 6px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;font-weight:600;white-space:nowrap;min-width:0;touch-action:manipulation}
-.st-switch button svg{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.st-switch button[aria-selected="true"]{background:var(--st-primary);color:var(--st-primary-ink)}
-@media (max-width:359px){.st-switch button{font-size:13.5px;padding:0 2px}.st-switch button svg{display:none}}
-.st-head :focus-visible,.st-switch :focus-visible,.st-sheet :focus-visible{outline:2px solid var(--st-primary);outline-offset:2px}
+.st-switch{padding:10px 12px 8px}
+.st-switch-in{box-sizing:border-box;flex:1;min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:var(--st-surface);border:1px solid var(--st-line);border-radius:16px;padding:4px}
+.st-switch-in button{font:inherit;border:0;background:none;color:var(--st-muted);cursor:pointer;min-height:44px;border-radius:12px;padding:0 6px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;font-weight:600;white-space:nowrap;min-width:0;touch-action:manipulation}
+.st-switch-in button svg{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.st-switch-in button[aria-selected="true"]{background:var(--st-primary);color:var(--st-primary-ink)}
+@media (max-width:359px){.st-switch-in button{font-size:13.5px;padding:0 2px}.st-switch-in button svg{display:none}}
+.st-switch :focus-visible,.st-sheet :focus-visible{outline:2px solid var(--st-primary);outline-offset:2px}
 
 /* Bảng dữ liệu chung */
 .st-sheet{position:fixed;inset:0;z-index:40;background:var(--st-scrim);display:flex;align-items:flex-end;justify-content:center}
@@ -865,40 +866,56 @@ img{max-width:100%}
 }
 
 /* ===== Ghép ba sổ vào một khung: dùng chung bảng màu, chữ và bề rộng ===== */
-html #mod-b:not(.z){--bg:var(--st-bg);--surface:var(--st-surface);--ink:var(--st-ink);--muted:var(--st-muted);--line:var(--st-line);--in:var(--st-primary);--in-soft:var(--st-primary-soft);--btn-text:var(--st-primary-ink)}
+html #mod-a:not(.z){--bg:var(--st-bg);--surface:var(--st-surface);--surface-2:var(--st-surface-2);--ink:var(--st-ink);--muted:var(--st-muted);--line:var(--st-line);--primary:var(--st-primary);--primary-ink:var(--st-primary-ink);--hero-bg:var(--st-hero-bg);--hero-ink:var(--st-hero-ink);--hero-soft:var(--st-hero-soft);--hero-track:var(--st-hero-track);--danger:var(--st-danger);--danger-soft:var(--st-danger-soft);--scrim:var(--st-scrim);--shadow:var(--st-shadow)}
+html #mod-b:not(.z){--bg:var(--st-bg);--surface:var(--st-surface);--ink:var(--st-ink);--muted:var(--st-muted);--line:var(--st-line)}
 html #mod-c:not(.z){--bg:var(--st-bg);--card:var(--st-surface);--ink:var(--st-ink);--muted:var(--st-muted);--line:var(--st-line);--accent:var(--st-primary);--accent-ink:var(--st-primary-ink);--accent-soft:var(--st-primary-soft)}
 #mod-b,#mod-c{font-family:var(--st-font-ui)}
 
+/* Cùng một khổ trang cho cả ba sổ (lấy theo trang Lịch sử của Chia bill): rộng tối đa 520px, lề hai bên 12px, cách trên 8px */
+html #mod-a .app,html #mod-b .wrap,html #mod-c main{box-sizing:border-box;width:100%;max-width:520px;margin:0 auto;padding-top:8px;padding-left:12px;padding-right:12px}
+
 /* Chi tiêu */
-#mod-a .app{max-width:520px;padding-top:8px}
 #mod-a .brand{display:none}
 #mod-a .top .month{flex:1;justify-content:space-between}
-#mod-a .nav div,#mod-a .sheet-in{max-width:520px}
-#mod-a .fab{right:max(16px,calc(50% - 244px))}
+#mod-a .chips{margin-inline:-12px;padding:0 12px 4px;scroll-padding-inline:12px}
+#mod-a .sheet-in{max-width:520px}
+#mod-a .fab{right:max(12px,calc(50% - 248px));bottom:calc(82px + env(safe-area-inset-bottom,0px))}
 
-/* Quỹ nhóm */
-#mod-b .wrap{max-width:520px;padding-top:8px}
+/* Quỹ nhóm: xanh lá vẫn là màu của tiền thu, xanh dương là màu của nút và mục đang chọn */
 #mod-b .mini,#mod-b .foot{display:none}
 #mod-b .single,#mod-b .single.wide{max-width:none}
-#mod-b .tabs{padding-left:max(6px,calc(50% - 254px));padding-right:max(6px,calc(50% - 254px))}
+#mod-b .chk{white-space:normal;text-align:center;line-height:1.15}
+#mod-b :focus-visible{outline-color:var(--st-primary)}
+#mod-b .btn.primary:not(.out){background:var(--st-primary);border-color:var(--st-primary);color:var(--st-primary-ink)}
+#mod-b .btn.add,#mod-b .fchip.add{color:var(--st-primary)}
+#mod-b .arow[data-open="true"]{border-color:var(--st-primary)}
+#mod-b .chk[aria-pressed="true"]{background:var(--st-primary-soft);border-color:var(--st-primary);color:var(--st-primary)}
+#mod-b .in:focus,#mod-b .dfield:focus-within .dtext{border-color:var(--st-primary);box-shadow:0 0 0 3px var(--st-primary-soft)}
+#mod-b .toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 
 /* Chia bill */
-#mod-c main{max-width:520px;padding-top:8px}
-#mod-c .tabs .in{max-width:504px}
 #mod-c .mini,#mod-c #bk-box{display:none!important}
-#mod-b .chk{white-space:normal;text-align:center;line-height:1.15}
+#mod-c #v-summary>.sec:first-child{margin-top:0!important}
+#mod-c .toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+
+/* ===== Thanh dưới cùng: nổi, bo tròn, cố định; cả ba sổ cùng một kiểu, chỉ có biểu tượng ===== */
+html #mod-a .nav,html #mod-b .tabs,html #mod-c .tabs{box-sizing:border-box;position:fixed;left:50%;right:auto;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));width:calc(100% - 24px);max-width:496px;z-index:10;display:flex;justify-content:center;margin:0;gap:4px;border:1px solid var(--st-line);border-radius:999px;background:color-mix(in srgb,var(--st-surface) 94%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 6px 22px rgba(0,0,0,.14);padding:5px}
+html #mod-a .nav div,html #mod-c .tabs .in{display:flex;flex:1;width:100%;max-width:none;gap:4px}
+html #mod-a .nav button,html #mod-b .tabs .tab,html #mod-c .tabs .tab{position:relative;flex:1;min-width:0;height:48px;min-height:48px;padding:6px 2px;border:0;border-radius:999px;background:none;box-shadow:none;color:var(--st-muted);font-size:0;line-height:0;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:0;cursor:pointer}
+html #mod-a .nav button svg,html #mod-b .tabs .tab svg,html #mod-c .tabs .tab svg{width:26px!important;height:26px!important;padding:0!important;border-radius:0!important;box-sizing:border-box;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;background:none}
+html #mod-a .nav button[aria-current="page"],html #mod-b .tabs .tab[aria-selected="true"],html #mod-c .tabs .tab.on{color:var(--st-primary);background:var(--st-primary-soft)}
+html #mod-b .tabs .tab::before{content:none}
 </style>
 </head>
 <body>
-<header class="st-head">
-  <h1 class="st-brand">Sổ tiền</h1>
-  <button type="button" class="st-more" id="stMore" aria-label="Sao lưu và dữ liệu" title="Sao lưu và dữ liệu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10M8 10.500l4 4 4-4"/><path d="M5 16v2.500A1.500 1.500 0 0 0 6.500 20h11a1.500 1.500 0 0 0 1.500-1.500V16"/></svg></button>
-</header>
-<nav class="st-switch" aria-label="Chọn sổ"><div class="st-switch-in" id="stSwitch" role="tablist">
+<div class="st-top">
+<h1 class="st-vh">Sổ tiền</h1>
+<nav class="st-switch" aria-label="Chọn sổ"><div class="st-switch-row"><div class="st-switch-in" id="stSwitch" role="tablist">
   <button type="button" role="tab" data-mod="chi-tieu" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9h-9V3Z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15V3.5Z"/></svg><span>Chi tiêu</span></button>
   <button type="button" role="tab" data-mod="quy-nhom" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.500" r="3"/><path d="M3.500 19c0-3 2.400-5 5.500-5s5.500 2 5.500 5"/><path d="M15.500 5.800a3 3 0 0 1 0 5.400M17 14.300c2.100.6 3.500 2.300 3.500 4.700"/></svg><span>Quỹ nhóm</span></button>
   <button type="button" role="tab" data-mod="chia-bill" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9.500 8h5M9.500 12h5"/></svg><span>Chia bill</span></button>
-</div></nav>
+</div><button type="button" class="st-more" id="stMore" aria-label="Sao lưu và dữ liệu" title="Sao lưu và dữ liệu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10M8 10.500l4 4 4-4"/><path d="M5 16v2.500A1.500 1.500 0 0 0 6.500 20h11a1.500 1.500 0 0 0 1.500-1.500V16"/></svg></button></div></nav>
+</div>
 
 <!-- ===== Sổ 1: Chi tiêu ===== -->
 <div class="mod" id="mod-a" data-mod="chi-tieu" hidden>
@@ -924,9 +941,9 @@ html #mod-c:not(.z){--bg:var(--st-bg);--card:var(--st-surface);--ink:var(--st-in
 <button class="fab" id="fab"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Thêm khoản chi</button>
 
 <nav class="nav" aria-label="Điều hướng"><div>
-  <button data-tab="tong-quan"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9h-9V3Z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15V3.5Z"/></svg>Tổng quan</button>
-  <button data-tab="so-chi"><svg viewBox="0 0 24 24"><path d="M5 6h14M5 12h14M5 18h9"/></svg>Sổ chi</button>
-  <button data-tab="thiet-lap"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>Thiết lập</button>
+  <button data-tab="tong-quan" aria-label="Tổng quan" title="Tổng quan"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9h-9V3Z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15V3.5Z"/></svg></button>
+  <button data-tab="so-chi" aria-label="Sổ chi" title="Sổ chi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h9"/></svg></button>
+  <button data-tab="thiet-lap" aria-label="Thiết lập" title="Thiết lập"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></button>
 </div></nav>
 
 <div class="sheet" id="sheet" hidden>
@@ -970,8 +987,8 @@ html #mod-c:not(.z){--bg:var(--st-bg);--card:var(--st-surface);--ink:var(--st-in
 
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" data-tab="contrib" aria-label="Thu, chi" title="Thu, chi" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 20V4M7 4L3.5 7.5M7 4l3.5 3.5M17 4v16M17 20l-3.5-3.5M17 20l3.5-3.5"/></svg></button>
-    <button class="tab" role="tab" data-tab="history" aria-label="Lịch sử" title="Lịch sử" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></button>
-    <button class="tab" role="tab" data-tab="report" aria-label="Báo cáo" title="Báo cáo" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg></button>
+    <button class="tab" role="tab" data-tab="history" aria-label="Lịch sử" title="Lịch sử" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.5-5.8"/><path d="M4 4v4h4M12 8v4.5l3 2"/></svg></button>
+    <button class="tab" role="tab" data-tab="report" aria-label="Báo cáo" title="Báo cáo" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19V10M12 19V5M19 19v-7"/></svg></button>
   </div>
 
   <!-- Tab 1: Thu, chi (chỉ nhập liệu) -->
@@ -1164,7 +1181,7 @@ html #mod-c:not(.z){--bg:var(--st-bg);--card:var(--st-surface);--ink:var(--st-in
   var KEY_MOD = 'sotien:mod', KEY_FLASH = 'sotien:flash';
   var K = { set: 'sct:settings', month: 'sct:m:', fund: 'quy_nhom_v1',
             bills: 'chiabill:v2:bills', pays: 'chiabill:v2:pays', names: 'chiabill:names', me: 'chiabill:me', v4: 'chiabill:v4:me' };
-  var cur = null, scrollPos = {};
+  var cur = null;
   function $(id) { return document.getElementById(id); }
   function each(sel, fn) { Array.prototype.forEach.call(document.querySelectorAll(sel), fn); }
 
@@ -1175,15 +1192,18 @@ html #mod-c:not(.z){--bg:var(--st-bg);--card:var(--st-surface);--ink:var(--st-in
     try { var s = localStorage.getItem(KEY_MOD); if (MODS.indexOf(s) >= 0) return s; } catch (e) {}
     return MODS[0];
   }
+  var FIRST = { 'chi-tieu': '#mod-a .nav button', 'quy-nhom': '#mod-b .tabs .tab', 'chia-bill': '#mod-c .tabs .tab' };
   function show(m) {
     if (MODS.indexOf(m) < 0 || m === cur) return;
-    if (cur) scrollPos[cur] = window.scrollY || 0;
+    var first = cur !== null;
     cur = m;
     each('.mod', function (el) { el.hidden = el.getAttribute('data-mod') !== m; });
-    each('.st-switch button', function (b) { b.setAttribute('aria-selected', b.getAttribute('data-mod') === m ? 'true' : 'false'); });
+    each('#stSwitch button', function (b) { b.setAttribute('aria-selected', b.getAttribute('data-mod') === m ? 'true' : 'false'); });
     try { localStorage.setItem(KEY_MOD, m); } catch (e) {}
     try { history.replaceState(null, '', '#' + m); } catch (e) {}
-    window.scrollTo(0, scrollPos[m] || 0);
+    // Mỗi lần chuyển sổ: về mục đầu tiên bên trái của thanh dưới.
+    if (first) { var b = document.querySelector(FIRST[m]); if (b) b.click(); }
+    window.scrollTo(0, 0);
   }
   $('stSwitch').addEventListener('click', function (e) {
     var b = e.target.closest('[data-mod]'); if (b) show(b.getAttribute('data-mod'));
