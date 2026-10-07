@@ -31,16 +31,12 @@
   ],
   "shortcuts": [
     {
-      "name": "Chi tiêu",
-      "url": "./#chi-tieu"
+      "name": "Nhập khoản chi",
+      "url": "./#nhap"
     },
     {
-      "name": "Quỹ nhóm",
-      "url": "./#quy-nhom"
-    },
-    {
-      "name": "Chia bill",
-      "url": "./#chia-bill"
+      "name": "Lịch sử",
+      "url": "./#lich-su"
     }
   ]
 }

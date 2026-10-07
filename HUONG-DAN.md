@@ -1,6 +1,28 @@
 # Sổ tiền
 
-Một app gộp ba sổ: **Chi tiêu** (chi tiêu cá nhân, ngân sách tháng), **Quỹ nhóm** (thu, chi, báo cáo quỹ) và **Chia bill** (chia bill, cho vay, trả nợ). Chọn sổ ở thanh trên cùng; thanh dưới cùng là các mục của sổ đang mở. Cài được lên màn hình chính và dùng được khi mất mạng.
+Một sổ duy nhất cho chi tiêu cá nhân, quỹ nhóm, chia bill và trả nợ. Cài được lên màn hình chính và dùng được khi mất mạng.
+
+## Cách dùng
+
+Thanh dưới cùng có ba mục:
+
+- **Tổng quan:** chọn thời gian xem (Tháng, Năm, Tất cả, Tuỳ chọn), số tiền đã chi, khung Nợ (tôi nợ ai, ai nợ tôi, ai trả cho ai), các bill, số dư từng quỹ và chi tiêu cá nhân theo mục.
+- **Lịch sử:** chọn thời gian ở trên, rồi chọn một trong bốn ô Cá nhân, Quỹ, Chia bill, Trả nợ. Bấm vào từng khoản để sửa hoặc xoá.
+- **Thiết lập:** ngân sách chi tiêu hàng tháng, danh sách người, các mục chi tiêu, sao lưu và dữ liệu.
+
+Ở trang Tổng quan có hai nút nổi:
+
+- **+ Chi tiêu** (bên phải): nhập khoản chi cá nhân; đổi sang ô Quỹ ở đầu trang để nhập khoản chi của quỹ.
+- **+ Quỹ, bill, nợ** (bên trái): Đóng quỹ, Chia bill, Trả nợ.
+
+Mỗi lần mở, app luôn vào trang Tổng quan.
+
+Vài điểm nên biết:
+
+- Dòng "Còn lại" và "mỗi ngày chi được khoảng" trên thẻ Đã chi chỉ hiện khi đã đặt ngân sách tháng trong Thiết lập.
+- Danh sách người trong Thiết lập dùng để chọn thành viên khi chia bill, trả nợ và chọn nhanh khi đóng quỹ. Ở Đóng quỹ có thể gõ tên bất kỳ; tên tự gõ chỉ lưu trong khoản đóng đó.
+- Phần "Ai trả cho ai" là cách trả gọn nhất để mọi người hết nợ, mỗi người chỉ trả một lần, nên đôi khi một người vừa nhận vừa trả.
+- Số tiền ở quỹ, bill và nợ nhập theo nghìn đồng (k); chi tiêu cá nhân nhập theo đồng.
 
 ## Đưa lên GitHub Pages
 
@@ -9,6 +31,8 @@ Một app gộp ba sổ: **Chi tiêu** (chi tiêu cá nhân, ngân sách tháng)
 3. Vào **Settings → Pages**, chọn **Deploy from a branch**, nhánh `main`, thư mục `/ (root)`, rồi bấm **Save**.
 4. Chờ khoảng một phút, mở `https://<tên-tài-khoản>.github.io/so-tien/`.
 
+Nếu đã đưa bản Sổ tiền cũ lên rồi, chỉ cần tải đè các file mới lên đúng repository đó; điện thoại sẽ tự lấy bản mới ở lần mở kế tiếp (có thể phải đóng app rồi mở lại một lần).
+
 ## Cài lên điện thoại
 
 - **iPhone (Safari):** mở trang, bấm nút Chia sẻ rồi chọn **Thêm vào Màn hình chính**.
@@ -16,17 +40,17 @@ Một app gộp ba sổ: **Chi tiêu** (chi tiêu cá nhân, ngân sách tháng)
 
 ## Dữ liệu từ ba app cũ
 
-Sổ tiền dùng lại đúng chỗ lưu của ba app cũ, nên:
+Sổ tiền dùng lại đúng chỗ lưu của ba app cũ (Sổ Chi Tiêu, Quỹ nhóm, Chia Bill), nên:
 
-- **Mở bằng Safari/Chrome, cùng tài khoản GitHub Pages** (cùng địa chỉ `<tên-tài-khoản>.github.io`): dữ liệu cũ tự hiện ra, không phải làm gì.
+- **Mở bằng Safari/Chrome ở cùng địa chỉ `<tên-tài-khoản>.github.io`:** dữ liệu cũ tự hiện ra, không phải làm gì.
 - **Bản cài ở màn hình chính iPhone** có kho dữ liệu riêng cho từng app, nên cần chuyển tay:
-  - Quỹ nhóm, Chia Bill: trong app cũ bấm sao lưu/xuất dữ liệu để sao chép, rồi trong Sổ tiền mở tab cuối của sổ bất kỳ (Thiết lập hoặc Báo cáo) → **Sao lưu và dữ liệu** → **Khôi phục** → dán vào → **Khôi phục**.
+  - Quỹ nhóm, Chia Bill: trong app cũ bấm sao lưu/xuất dữ liệu để sao chép, rồi trong Sổ tiền vào **Thiết lập → Sao lưu và dữ liệu → Khôi phục**, dán vào và bấm **Khôi phục**.
   - Sổ Chi Tiêu cũ không có nút sao lưu, nên các khoản đã ghi trong bản cài ở màn hình chính không chuyển sang được bằng cách này.
 
 ## Sao lưu
 
-Mục **Sao lưu và dữ liệu** nằm ở cuối tab Thiết lập (sổ Chi tiêu) và tab Báo cáo (sổ Quỹ nhóm, Chia bill): lưu một file chứa cả ba sổ, khôi phục từ file hoặc từ đoạn dữ liệu dán vào, và xoá dữ liệu từng sổ. Dữ liệu chỉ nằm trong trình duyệt của máy, không gửi đi đâu; xoá dữ liệu trình duyệt hoặc gỡ app sẽ mất, nên hãy sao lưu thường xuyên.
+Vào **Thiết lập → Sao lưu và dữ liệu** để lưu một file chứa toàn bộ sổ (chi tiêu, quỹ, bill, nợ, danh sách người), khôi phục từ file hoặc từ đoạn dữ liệu dán vào, và xoá dữ liệu từng phần. Dữ liệu chỉ nằm trong trình duyệt của máy, không gửi đi đâu; xoá dữ liệu trình duyệt hoặc gỡ app sẽ mất, nên hãy sao lưu thường xuyên.
 
 ## Cập nhật app
 
-Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v6'` (ví dụ thành `v2`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
+Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v9'` (ví dụ thành `v10`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
