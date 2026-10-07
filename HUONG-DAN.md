@@ -10,10 +10,10 @@ Thanh dưới cùng có ba mục:
 - **Lịch sử:** chọn thời gian ở trên, rồi chọn một trong bốn ô Cá nhân, Quỹ, Chia bill, Trả nợ. Bấm vào từng khoản để sửa hoặc xoá.
 - **Thiết lập:** ngân sách chi tiêu hàng tháng, danh sách người, các mục chi tiêu, sao lưu và dữ liệu.
 
-Ở trang Tổng quan có hai nút nổi:
+Ở trang Tổng quan và Lịch sử có hai nút nổi:
 
 - **+ Chi tiêu** (bên phải): nhập khoản chi cá nhân; đổi sang ô Quỹ ở đầu trang để nhập khoản chi của quỹ.
-- **+ Quỹ, bill, nợ** (bên trái): Đóng quỹ, Chia bill, Trả nợ.
+- **+ Quỹ, bill, nợ** (bên trái): Đóng quỹ, Chia bill, Trả nợ; mở lại đúng ô đang dùng lần trước.
 
 Mỗi lần mở, app luôn vào trang Tổng quan.
 
@@ -23,6 +23,8 @@ Vài điểm nên biết:
 - Danh sách người trong Thiết lập dùng để chọn thành viên khi chia bill, trả nợ và chọn nhanh khi đóng quỹ. Ở Đóng quỹ có thể gõ tên bất kỳ; tên tự gõ chỉ lưu trong khoản đóng đó.
 - Phần "Đối soát" là cách trả gọn nhất để mọi người hết nợ, mỗi người chỉ trả một lần, nên đôi khi một người vừa nhận vừa trả.
 - Số tiền ở quỹ, bill và nợ nhập theo nghìn đồng (k); chi tiêu cá nhân nhập theo đồng.
+- Khi nhập bill, nút nhỏ bên trái ô chia của mỗi người đổi giữa "×" (chia theo hệ số) và "=" (trả một mức cố định, phần còn lại chia cho những người khác).
+- Trong Lịch sử → Chia bill, mở một bill để tích từng khoản đã trả hoặc tích "Đã trả cả bill". Khoản đã tích không còn tính là nợ, nên đừng ghi thêm khoản đó ở Trả nợ.
 
 ## Đưa lên GitHub Pages
 
@@ -53,4 +55,4 @@ Vào **Thiết lập → Sao lưu và dữ liệu** để lưu một file chứa
 
 ## Cập nhật app
 
-Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v10'` (ví dụ thành `v11`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
+Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v11'` (ví dụ thành `v12`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.

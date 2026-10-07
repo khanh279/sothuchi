@@ -1370,6 +1370,38 @@ body[data-tab="nhap"][data-grp="e"] #mod-a .sheet,body[data-tab="nhap"][data-grp
 #mod-c .dsx[open]>summary svg{transform:rotate(180deg)}
 #mod-c .dsx>summary:focus-visible{outline:2px solid var(--st-primary);outline-offset:2px;border-radius:8px}
 #mod-c .debtcard:has(.dsx:not([open])){padding-bottom:6px}
+
+/* ===== Chia bill: ô hệ số (×) hoặc mức cố định (=) ===== */
+#mod-c .person .wwrap::before{content:none}
+#mod-c .person .wwrap{flex:0 0 74px;display:flex;align-items:stretch;background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+#mod-c .person .wwrap.fx{flex-basis:96px}
+#mod-c .person .wwrap:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+#mod-c .person .wwrap .wmode{flex:none;width:30px;border:0;border-right:1px solid var(--line);background:var(--st-primary-soft);color:var(--st-primary);font:inherit;font-size:17px;font-weight:700;line-height:1;padding:0;cursor:pointer}
+#mod-c .person .wwrap .wmode[aria-pressed="true"]{background:var(--st-primary);color:var(--st-primary-ink)}
+#mod-c .person .wwrap input,#mod-c .person .wwrap input:focus-visible{flex:1;min-width:0;width:auto;border:0;border-radius:0;background:none;box-shadow:none;padding:10px 4px 10px 7px;text-align:left;font-size:16px;font-weight:700}
+#mod-c .person .wwrap.fx::after{content:"k";align-self:center;padding-right:7px;color:var(--muted);font-weight:500}
+@media (max-width:379px){#mod-c .person .wwrap{flex-basis:70px}#mod-c .person .wwrap.fx{flex-basis:88px}#mod-c .person .wwrap .wmode{width:26px}#mod-c .person .wwrap input{padding:10px 2px 10px 5px}}
+#mod-c .fxwarn{background:var(--owe-soft,#fdecec);color:var(--owe);border-radius:12px;padding:10px 12px;font-size:14px;font-weight:600;margin-bottom:16px}
+/* ===== Lịch sử bill: tích đã thanh toán ===== */
+#mod-c .tkhead{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:36px}
+#mod-c .tkall{font:inherit;display:inline-flex;align-items:center;gap:8px;border:0;background:none;color:var(--muted);font-size:13.5px;font-weight:600;padding:4px 0 4px 8px;min-height:36px;cursor:pointer}
+#mod-c .tkall i,#mod-c .tk{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);display:grid;place-items:center;padding:0}
+#mod-c .tk{cursor:pointer}
+#mod-c .tkall svg,#mod-c .tk svg{width:16px;height:16px;fill:none;stroke:transparent;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+#mod-c .tkall[aria-checked="true"]{color:var(--get)}
+#mod-c .tkall[aria-checked="true"] i,#mod-c .tk[aria-checked="true"]{background:var(--get);border-color:var(--get)}
+#mod-c .tkall[aria-checked="true"] svg,#mod-c .tk[aria-checked="true"] svg{stroke:#fff}
+#mod-c .tgrid.tk5{grid-template-columns:fit-content(34%) auto minmax(0,1fr) auto auto}
+#mod-c .tgrid.tk5 .tkc{justify-content:flex-end;padding-left:10px}
+#mod-c .tgrid.tk5 .tk{position:relative}
+#mod-c .tgrid.tk5 .tk::after{content:"";position:absolute;inset:-9px}
+#mod-c .tgrid .drow2.done .dbox,#mod-c .tgrid .drow2.done .damt,#mod-c .tgrid .drow2.done .darw{color:var(--muted);opacity:.75}
+#mod-c .tgrid .drow2.done .damt{text-decoration:line-through}
+#mod-c .tk:focus-visible,#mod-c .tkall:focus-visible{outline:2px solid var(--st-primary);outline-offset:2px}
+#mod-c .bpaid{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;background:var(--bg);color:var(--muted);font-weight:600}
+#mod-c .acc .bpaid{background:var(--card)}
+#mod-c .bpaid.all{background:var(--get-soft,#e3f3ea);color:var(--get)}
+#mod-c .tkhead .lbl,#mod-c .tkall span{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -1747,8 +1779,8 @@ body[data-tab="nhap"][data-grp="e"] #mod-a .sheet,body[data-tab="nhap"][data-grp
     body.setAttribute('data-mod', tab); body.setAttribute('data-tab', tab); body.setAttribute('data-sub', sub); body.setAttribute('data-grp', EXP[sub] ? 'e' : 'n');
     each('.mod', function (el) { el.hidden = !visible(el.id); });
     $('stTop').hidden = !(tab === 'nhap' || tab === 'lich-su');
-    $('stFab').hidden = tab !== 'tong-quan';   // hai nút nhập chỉ có ở Tổng quan
-    $('stFab2').hidden = tab !== 'tong-quan';
+    $('stFab').hidden = !(tab === 'tong-quan' || tab === 'lich-su');   // hai nút nhập có ở Tổng quan và Lịch sử
+    $('stFab2').hidden = !(tab === 'tong-quan' || tab === 'lich-su');
     closeMenu();
     each('#stNav button', function (b) { if (b.getAttribute('data-tab') === tab && !(tab === 'nhap' && EXP[sub])) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
     each('#stSwitch button', function (b) { b.setAttribute('aria-selected', b.getAttribute('data-sub') === sub ? 'true' : 'false'); });
@@ -1761,6 +1793,7 @@ body[data-tab="nhap"][data-grp="e"] #mod-a .sheet,body[data-tab="nhap"][data-grp
   function go(t, s) {
     if (TABS.indexOf(t) < 0) return;
     if (t === 'nhap' && !s && (t !== tab || EXP[subs.nhap])) s = lastN;   // vào từ thanh dưới: luôn mở ô đầu tiên
+    if (t === 'nhap' && s && !EXP[s] && SUBS.indexOf(s) >= 0) lastN = s;
     var tabChanged = t !== tab, subChanged = !!s && SUBS.indexOf(s) >= 0 && subs[t] !== undefined && s !== subs[t];
     var wasChi = inline('chi'), wasCq = inline('cq');
     if (subChanged) subs[t] = s;
@@ -1792,7 +1825,7 @@ body[data-tab="nhap"][data-grp="e"] #mod-a .sheet,body[data-tab="nhap"][data-grp
   window.addEventListener('hashchange', function () { var h = location.hash.slice(1); if (TABS.indexOf(h) >= 0) go(h); });
   // Mở app luôn vào Tổng quan; chỉ khi app tự tải lại (sau xoá / khôi phục dữ liệu) mới quay về trang đang đứng.
   (function () { var h = location.hash.slice(1), back = false; try { back = !!sessionStorage.getItem(KEY_FLASH); } catch (e) {} go(back && TABS.indexOf(h) >= 0 ? h : TABS[0]); })();
-  $('stFab2').addEventListener('click', function () { go('nhap', 'quy'); });
+  $('stFab2').addEventListener('click', function () { go('nhap', lastN); });   // mở lại đúng ô (Đóng quỹ / Chia bill / Trả nợ) đang dùng lần trước
 
   /* ---------- khoảng thời gian đang xem (chọn ở đầu trang Tổng quan và Lịch sử) ---------- */
   var period = (function () {
@@ -3270,19 +3303,29 @@ window.SoTien.sync();
   // ---------- Tính toán ----------
   function wText(w) { return String(w).replace('.', ','); }
   function wOf(p) { var w = p ? p.w : 1; w = (w === undefined || w === null || w === '') ? 1 : +w; return isFinite(w) && w >= 0 ? w : 1; }
+  // Mức trả cố định (nghìn đồng): người có mức cố định trả đúng mức đó, phần còn lại chia theo hệ số cho những người khác.
+  function fixOf(p) { if (!p || p.fix === undefined || p.fix === null || p.fix === '') return null; var f = +p.fix; return isFinite(f) && f >= 0 ? f : null; }
+  // Dấu "đã thanh toán" của từng khoản cần chuyển trong một bill.
+  function doneKey(t) { return String(t.from) + '' + String(t.to); }
+  function doneMap(b) { var m = {}; ((b && b.done) || []).forEach(function (x) { m[x] = 1; }); return m; }
+  function doneCount(b, c) { var m = doneMap(b); return c.transfers.filter(function (t) { return m[doneKey(t)]; }).length; }
   function calc(people) {
     var n = people.length;
     var total = people.reduce(function (s, p) { return s + (+p.paid || 0); }, 0);
-    var sumW = people.reduce(function (s, p) { return s + wOf(p); }, 0);
+    var sumFix = 0, free = [];
+    people.forEach(function (p) { var f = fixOf(p); if (f === null) free.push(p); else sumFix += f; });
+    var rest = total - sumFix;
+    var sumW = free.reduce(function (s, p) { return s + wOf(p); }, 0);
     var flat = sumW <= 0;                       // mọi hệ số bằng 0 thì chia đều
-    if (flat) sumW = n;
-    var even = flat || people.every(function (p) { return wOf(p) === 1; });
-    var unit = sumW ? total / sumW : 0;
+    if (flat) sumW = free.length;
+    var even = free.length === n && (flat || people.every(function (p) { return wOf(p) === 1; }));
+    var unit = sumW ? rest / sumW : 0;
+    var bad = sumFix > total + 0.05 ? 'over' : (!free.length && Math.abs(rest) > 0.05 ? 'gap' : '');
     var rows = people.map(function (p, i) {
-      var paid = +p.paid || 0, w = flat ? 1 : wOf(p);
-      return { i: i, name: p.name, paid: paid, w: w, share: unit * w, net: paid - unit * w };
+      var paid = +p.paid || 0, f = fixOf(p), w = f !== null ? 1 : (flat ? 1 : wOf(p)), share = f !== null ? f : unit * w;
+      return { i: i, name: p.name, paid: paid, w: w, fixed: f !== null, share: share, net: paid - share };
     });
-    return { n: n, total: total, share: unit, even: even, rows: rows, transfers: settle(rows) };
+    return { n: n, total: total, share: unit, even: even, rows: rows, sumFix: sumFix, bad: bad, transfers: bad ? [] : settle(rows) };
   }
   function settle(rows) {
     var debt = [], cred = [];
@@ -3312,21 +3355,27 @@ window.SoTien.sync();
   function rowsHTML(rows) {
     return rows.map(function (r) {
       return '<div class="line"><div><div class="who">' + esc(r.name) + '</div>' +
-        '<div class="meta">Chi ' + k(r.paid) + ' · Phần ' + k(r.share) + (r.w !== 1 ? ' · Hệ số ' + wText(r.w) : '') + '</div></div>' + statusHTML(r.net) + '</div>';
+        '<div class="meta">Chi ' + k(r.paid) + ' · Phần ' + k(r.share) + (r.fixed ? ' · Cố định' : (r.w !== 1 ? ' · Hệ số ' + wText(r.w) : '')) + '</div></div>' + statusHTML(r.net) + '</div>';
     }).join('');
   }
-  function transfersHTML(list) {
-    return '<div class="dgrid tgrid">' + list.map(function (t) {
-      var c = isMe(t.to) ? 'get' : (isMe(t.from) ? 'owe' : '');
-      return '<div class="drow2 ' + c + '"><span class="dbox' + (isMe(t.from) ? ' me' : '') + '">' + esc(t.from) + '</span><span class="darw" role="img" aria-label="trả cho">→</span>' +
-        '<span class="dbox' + (isMe(t.to) ? ' me' : '') + '">' + esc(t.to) + '</span><span class="damt ' + c + '">' + k(t.amt) + '</span></div>';
+  function transfersHTML(list, b) {
+    var dm = b ? doneMap(b) : null;
+    return '<div class="dgrid tgrid' + (b ? ' tk5' : '') + '">' + list.map(function (t) {
+      var c = isMe(t.to) ? 'get' : (isMe(t.from) ? 'owe' : ''), dn = dm && dm[doneKey(t)];
+      return '<div class="drow2 ' + c + (dn ? ' done' : '') + '"><span class="dbox' + (isMe(t.from) ? ' me' : '') + '">' + esc(t.from) + '</span><span class="darw" role="img" aria-label="trả cho">→</span>' +
+        '<span class="dbox' + (isMe(t.to) ? ' me' : '') + '">' + esc(t.to) + '</span><span class="damt ' + c + '">' + k(t.amt) + '</span>' +
+        (b ? '<span class="tkc"><button type="button" class="tk" role="checkbox" aria-checked="' + (dn ? 'true' : 'false') + '" data-tk="' + esc(b.id) + '" data-tf="' + esc(t.from) + '" data-tt="' + esc(t.to) + '" aria-label="Đã thanh toán: ' + esc(t.from) + ' trả ' + esc(t.to) + '">' + TICK + '</button></span>' : '') + '</div>';
     }).join('') + '</div>';
   }
-  function billBody(c) {
+  var TICK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  // Bill trong lịch sử (có b): mỗi khoản cần chuyển có ô tích đã thanh toán, kèm ô tích cho cả bill.
+  function billBody(c, b) {
+    var all = b && c.transfers.length && doneCount(b, c) === c.transfers.length;
     return '<div class="tot-row"><div><div class="lbl">Tổng bill</div><div class="total">' + k(c.total) + '</div></div>' +
       '<div class="each"><div class="lbl">' + (c.even ? 'Mỗi người' : 'Mỗi phần') + '</div><div class="eachv">' + k(c.share) + '</div></div></div><hr class="dash">' +
       rowsHTML(c.rows) +
-      (c.transfers.length ? '<hr class="dash"><div class="lbl">Cần chuyển</div>' + transfersHTML(c.transfers) : '');
+      (c.transfers.length ? '<hr class="dash"><div class="tkhead"><div class="lbl">Cần chuyển</div>' +
+        (b ? '<button type="button" class="tkall" role="checkbox" aria-checked="' + (all ? 'true' : 'false') + '" data-tkall="' + esc(b.id) + '"><span>Đã trả cả bill</span><i>' + TICK + '</i></button>' : '') + '</div>' + transfersHTML(c.transfers, b) : '');
   }
 
   // ---------- Chia bill ----------
@@ -3356,17 +3405,19 @@ window.SoTien.sync();
         '<div class="nm' + (i === 0 ? ' me' : '') + '" data-name="' + i + '">' + esc(i === 0 ? ME : p.name) + '</div>' +
         '<div class="money-wrap"><input inputmode="numeric" pattern="[0-9]*" data-paid="' + i + '" placeholder="0" value="' +
         (p.paid ? (+p.paid).toLocaleString('vi-VN') : '') + '" aria-label="Số tiền đã chi, nghìn đồng"></div>' +
-        '<div class="wwrap"><input class="win" inputmode="decimal" data-w="' + i + '" value="' + wText(wOf(p)) + '" placeholder="1" maxlength="4" autocomplete="off" aria-label="Hệ số chia của ' + (i === 0 ? 'tôi' : 'người ' + LETTERS[i]) + '"></div></div></div>';
+        '<div class="wwrap' + (p.fx ? ' fx' : '') + '"><button type="button" class="wmode" data-wm="' + i + '" aria-pressed="' + (p.fx ? 'true' : 'false') + '" aria-label="' + (p.fx ? 'Đang trả mức cố định, bấm để chia theo hệ số' : 'Đang chia theo hệ số, bấm để trả mức cố định') + '">' + (p.fx ? '=' : '×') + '</button>' +
+        '<input class="win" inputmode="decimal" data-w="' + i + '" value="' + (p.fx ? (p.fix === '' || p.fix === undefined ? '' : wText(p.fix)) : wText(wOf(p))) + '" placeholder="' + (p.fx ? '0' : '1') + '" maxlength="' + (p.fx ? 7 : 4) + '" autocomplete="off" aria-label="' + (p.fx ? 'Mức trả cố định, nghìn đồng, của ' : 'Hệ số chia của ') + (i === 0 ? 'tôi' : 'người ' + LETTERS[i]) + '"></div></div></div>';
     }).join('');
     updateResult();
   }
   function cleanPeople() {
-    return state.people.map(function (p, i) { return { name: i === 0 ? ME : ((p.name || '').trim() || defName(i)), paid: +p.paid || 0, w: wOf(p) }; });
+    return state.people.map(function (p, i) { return { name: i === 0 ? ME : ((p.name || '').trim() || defName(i)), paid: +p.paid || 0, w: wOf(p), fix: p.fx ? (+p.fix || 0) : undefined }; });
   }
   function updateResult() {
     var c = calc(cleanPeople());
-    $('#cb-save').disabled = c.total <= 0 || c.n < 2;
+    $('#cb-save').disabled = c.total <= 0 || c.n < 2 || !!c.bad;
     if (c.total <= 0) { $('#result').innerHTML = ''; return; }
+    if (c.bad) { $('#result').innerHTML = '<div class="fxwarn" role="alert">' + (c.bad === 'over' ? 'Tổng mức cố định (' + k(c.sumFix) + ') lớn hơn tổng bill (' + k(c.total) + ').' : 'Ai cũng trả mức cố định nhưng cộng lại (' + k(c.sumFix) + ') khác tổng bill (' + k(c.total) + ').') + '</div>'; return; }
     $('#result').innerHTML = '<div class="receipt">' + billBody(c) + '</div>';
   }
   $('#people').addEventListener('input', function (e) {
@@ -3374,10 +3425,12 @@ window.SoTien.sync();
     if (t.dataset.w !== undefined) {
       var wc = t.value.replace(/[^0-9.,]/g, '').replace(/\./g, ','), wi = wc.indexOf(',');
       if (wi >= 0) wc = wc.slice(0, wi + 1) + wc.slice(wi + 1).replace(/,/g, '');
-      wc = wc.slice(0, 4);
+      var wp = state.people[+t.dataset.w];
+      wc = wc.slice(0, wp.fx ? 7 : 4);
       if (wc !== t.value) t.value = wc;
       var wv = parseFloat(wc.replace(',', '.'));
-      state.people[+t.dataset.w].w = isFinite(wv) ? wv : 1;   // để trống thì tính là 1
+      if (wp.fx) wp.fix = isFinite(wv) ? wv : 0;   // mức cố định để trống thì là 0
+      else wp.w = isFinite(wv) ? wv : 1;           // hệ số để trống thì tính là 1
     } else if (t.dataset.name !== undefined) {
       state.people[+t.dataset.name].name = t.value;
     } else if (t.dataset.paid !== undefined) {
@@ -3388,7 +3441,13 @@ window.SoTien.sync();
     updateResult();
   });
   $('#people').addEventListener('focusin', function (e) { if (e.target.dataset && e.target.dataset.w !== undefined) { try { e.target.select(); } catch (er) {} } });
-  $('#people').addEventListener('focusout', function (e) { var t = e.target; if (t.dataset && t.dataset.w !== undefined) t.value = wText(wOf(state.people[+t.dataset.w])); });
+  $('#people').addEventListener('focusout', function (e) { var t = e.target; if (t.dataset && t.dataset.w !== undefined) { var fp = state.people[+t.dataset.w]; if (fp && !fp.fx) t.value = wText(wOf(fp)); } });
+  $('#people').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-wm]'); if (!b) return;
+    var p = state.people[+b.dataset.wm]; p.fx = !p.fx; if (p.fx) p.fix = ''; else { p.fix = ''; p.w = 1; }
+    renderPeople();
+    var ni = ROOT.querySelector('#people input[data-w="' + b.dataset.wm + '"]'); if (ni) { ni.focus(); try { ni.select(); } catch (er) {} }
+  });
   $('#plus').addEventListener('click', function () { if (state.n < 20) { state.n++; renderPeople(); } });
   $('#addp').addEventListener('click', function () {
     window.SoTien.pickPeople({ title: 'Người chia bill', selected: state.people.map(function (p) { return p.name; }), includeMe: true, lockMe: true }, function (sel) {
@@ -3400,15 +3459,21 @@ window.SoTien.sync();
   $('#minus').addEventListener('click', function () { if (state.n > 2) { state.n--; renderPeople(); } });
   $('#cb-save').addEventListener('click', function () {
     var people = cleanPeople();
-    if (calc(people).total <= 0 || people.length < 2) return;
+    var chk = calc(people); if (chk.total <= 0 || people.length < 2 || chk.bad) return;
     var bills = store.get(KEY_BILLS, []);
     var rec = { id: uid(), title: ($('#bill-title').value || '').trim() || 'Không tên', date: $('#cb-date').value || iso(new Date()), createdAt: Date.now(), people: people }, ei = -1;
     if (state.editId) bills.forEach(function (b, i) { if (b.id === state.editId) ei = i; });
-    if (ei >= 0) { rec.id = bills[ei].id; rec.createdAt = bills[ei].createdAt; bills[ei] = rec; } else bills.push(rec);
+    if (ei >= 0) {
+      rec.id = bills[ei].id; rec.createdAt = bills[ei].createdAt;
+      // Sửa bill: giữ lại các dấu đã thanh toán còn khớp với khoản cần chuyển mới.
+      var keep = {}; chk.transfers.forEach(function (t) { keep[doneKey(t)] = 1; });
+      var dn = (bills[ei].done || []).filter(function (x) { return keep[x]; }); if (dn.length) rec.done = dn;
+      bills[ei] = rec;
+    } else bills.push(rec);
     store.set(KEY_BILLS, bills);
     names = state.people.map(function (p) { return (p.name || '').trim(); });
     store.set(KEY_NAMES, names);
-    state.people.forEach(function (p) { p.paid = ''; p.w = 1; });
+    state.people.forEach(function (p) { p.paid = ''; p.w = 1; p.fx = false; p.fix = ''; });
     $('#bill-title').value = '';
     renderPeople();
     toast(ei >= 0 ? 'Đã lưu thay đổi' : 'Đã lưu vào lịch sử');
@@ -3423,11 +3488,11 @@ window.SoTien.sync();
     if (!bills.length) { $('#days').innerHTML = '<div class="empty">Không có bill trong khoảng này</div>'; return; }
     var list = bills.slice().sort(function (a, b) { return b.date.localeCompare(a.date) || b.createdAt - a.createdAt; });
     $('#days').innerHTML = list.map(function (b) {
-      var c = calc(b.people), open = openBill === b.id, conf = pendingDelete === b.id;
+      var c = calc(b.people), open = openBill === b.id, conf = pendingDelete === b.id, nd = doneCount(b, c), nt = c.transfers.length;
       return '<div class="bitem' + (open ? ' open' : '') + '"><button class="brow" data-bill="' + esc(b.id) + '" aria-expanded="' + open + '">' +
-        '<div class="bl"><div class="bt">' + esc(b.title || 'Không tên') + '</div><div class="bd">' + esc(shortDate(b.date)) + '</div></div>' +
+        '<div class="bl"><div class="bt">' + esc(b.title || 'Không tên') + '</div><div class="bd">' + esc(shortDate(b.date)) + (nt && nd === nt ? '<span class="bpaid all">Đã thanh toán</span>' : (nd ? '<span class="bpaid">Đã trả ' + nd + '/' + nt + '</span>' : '')) + '</div></div>' +
         '<div class="br"><div class="bamt">' + k(c.total) + '</div>' + ic('chev') + '</div></button>' +
-        (open ? '<div class="bbody">' + billBody(c) +
+        (open ? '<div class="bbody">' + billBody(c, b) +
           '<div class="bact"><button class="btn-edit" data-edit="' + esc(b.id) + '">' + ic('edit') + 'Sửa</button><button class="btn-del' + (conf ? ' confirm' : '') + '" data-del="' + esc(b.id) + '" aria-label="Xóa">' + (conf ? 'Bấm lần nữa để xóa' : ic('trash') + 'Xóa') + '</button></div></div>' : '') +
         '</div>';
     }).join('');
@@ -3443,6 +3508,16 @@ window.SoTien.sync();
         pendingPay = null; toast('Đã xóa');
       } else { pendingPay = pid; }
       renderDebt(); return;
+    }
+    var tk = e.target.closest('[data-tk], [data-tkall]');
+    if (tk) {
+      var all = store.get(KEY_BILLS, []), bid2 = tk.dataset.tk || tk.dataset.tkall, bb = all.filter(function (x) { return x.id === bid2; })[0]; if (!bb) return;
+      var cc = calc(bb.people || []), dm = doneMap(bb);
+      if (tk.dataset.tkall) { var on = doneCount(bb, cc) < cc.transfers.length; dm = {}; if (on) cc.transfers.forEach(function (t) { dm[doneKey(t)] = 1; }); }
+      else { var kk = doneKey({ from: tk.dataset.tf, to: tk.dataset.tt }); if (dm[kk]) delete dm[kk]; else dm[kk] = 1; }
+      var arr = cc.transfers.map(doneKey).filter(function (x) { return dm[x]; });
+      if (arr.length) bb.done = arr; else delete bb.done;
+      store.set(KEY_BILLS, all); renderHistory(); renderDebtSummary(); return;
     }
     var bi = e.target.closest('[data-bill]');
     if (bi) { var bid = bi.dataset.bill; openBill = openBill === bid ? null : bid; pendingDelete = null; renderHistory(); return; }
@@ -3553,7 +3628,12 @@ window.SoTien.sync();
   function meBalances(bills, pays) {
     var net = {};
     function add(n, v) { n = String(n || '').trim(); if (n && v) net[n] = (net[n] || 0) + v; }
-    bills.forEach(function (b) { calc(b.people || []).rows.forEach(function (r) { add(r.name, r.net); }); });
+    bills.forEach(function (b) {
+      var c = calc(b.people || []), dm = doneMap(b);
+      c.rows.forEach(function (r) { add(r.name, r.net); });
+      // khoản đã tích thanh toán coi như đã đưa tiền xong
+      c.transfers.forEach(function (t) { if (dm[doneKey(t)]) { add(t.from, t.amt); add(t.to, -t.amt); } });
+    });
     pays.forEach(function (p) { var a = +p.amt || 0; if (String(p.from || '').trim() === String(p.to || '').trim()) return; add(p.from, a); add(p.to, -a); });
     var rows = settleNeat(net), a = 0, b = 0, tot = {};
     rows.forEach(function (t) { if (isMe(t.to)) a += t.amt; if (isMe(t.from)) b += t.amt; tot[t.from] = (tot[t.from] || 0) + t.amt; });
@@ -3573,7 +3653,9 @@ window.SoTien.sync();
     var net = {};
     function add(n, v) { n = String(n || '').trim(); if (n && v) net[n] = (net[n] || 0) + v; }
     bills.forEach(function (b) {
+      var dm = doneMap(b);
       calc(b.people || []).transfers.forEach(function (t) {
+        if (dm[doneKey(t)]) return;   // đã tích thanh toán thì không còn là nợ
         if (isMe(t.to) && !isMe(t.from)) add(t.from, t.amt);
         else if (isMe(t.from) && !isMe(t.to)) add(t.to, -t.amt);
       });
@@ -3670,7 +3752,7 @@ window.SoTien.sync();
   }
   function editBill(id) {
     var b = store.get(KEY_BILLS, []).filter(function (x) { return x.id === id; })[0]; if (!b) return;
-    var ps = (b.people || []).map(function (p) { return { name: String(p.name || ''), paid: +p.paid ? String(+p.paid) : '', w: wOf(p) }; });
+    var ps = (b.people || []).map(function (p) { return { name: String(p.name || ''), paid: +p.paid ? String(+p.paid) : '', w: wOf(p), fx: fixOf(p) !== null, fix: fixOf(p) === null ? '' : fixOf(p) }; });
     var mi = -1; ps.forEach(function (p, i) { if (mi < 0 && isMe(p.name)) mi = i; });
     if (mi > 0) ps.unshift(ps.splice(mi, 1)[0]); else if (mi < 0) ps.unshift({ name: ME, paid: '', w: 0 });
     state.people = ps; state.n = ps.length;
@@ -3680,7 +3762,7 @@ window.SoTien.sync();
   }
   $('#edit-cancel').addEventListener('click', function () {
     setEdit(null);
-    state.people.forEach(function (p) { p.paid = ''; p.w = 1; });
+    state.people.forEach(function (p) { p.paid = ''; p.w = 1; p.fx = false; p.fix = ''; });
     $('#bill-title').value = ''; renderPeople();
   });
   var payEdit = null;
