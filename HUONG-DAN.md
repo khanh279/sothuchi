@@ -24,7 +24,7 @@ Vài điểm nên biết:
 - Phần "Đối soát" là cách trả gọn nhất để mọi người hết nợ, mỗi người chỉ trả một lần, nên đôi khi một người vừa nhận vừa trả.
 - Số tiền ở quỹ, bill và nợ nhập theo nghìn đồng (k); chi tiêu cá nhân nhập theo đồng.
 - Khi nhập bill, nút nhỏ bên trái ô chia của mỗi người đổi giữa "×" (chia theo hệ số) và "=" (trả một mức cố định, phần còn lại chia cho những người khác).
-- Trong Lịch sử → Chia bill, mở một bill để tích từng khoản đã trả hoặc tích "Đã trả cả bill". Khoản đã tích không còn tính là nợ, nên đừng ghi thêm khoản đó ở Trả nợ.
+- Trong **Đối soát**, bấm vào một dòng để ghi thanh toán: bấm "Trả hết" hoặc nhập số tiền rồi bấm Lưu. Khoản này được lưu vào Lịch sử → Trả nợ (ghi chú "Đối soát"), sửa hoặc xoá ở đó như mọi khoản trả nợ khác.
 
 ## Đưa lên GitHub Pages
 
@@ -55,4 +55,4 @@ Vào **Thiết lập → Sao lưu và dữ liệu** để lưu một file chứa
 
 ## Cập nhật app
 
-Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v11'` (ví dụ thành `v12`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
+Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v14'` (ví dụ thành `v15`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
