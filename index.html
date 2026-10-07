@@ -1360,6 +1360,16 @@ body[data-tab="nhap"][data-grp="n"] #mod-b .wrap,body[data-tab="nhap"][data-grp=
 .st-fab{font-size:clamp(14px,4.1vw,15.500px);padding:0 clamp(13px,4.4vw,20px) 0 clamp(10px,3.6vw,15px);gap:clamp(4px,1.6vw,7px);white-space:nowrap}
 body[data-tab="nhap"][data-grp="e"] #mod-a .sheet,body[data-tab="nhap"][data-grp="e"] #mod-b .qsheet{padding-bottom:calc(160px + env(safe-area-inset-bottom,0px))}
 .st-plist.single .st-prow i{display:none}
+
+/* ===== Đối soát: khối ẩn trong khung Nợ ===== */
+#mod-c .dsx{margin-top:8px;border-top:1px solid var(--line)}
+#mod-c .dsx>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:46px;padding:4px 0 0;cursor:pointer;font-size:16px;color:var(--ink)}
+#mod-c .dsx>summary::-webkit-details-marker{display:none}
+#mod-c .dsx>summary b{font-weight:700}
+#mod-c .dsx>summary svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
+#mod-c .dsx[open]>summary svg{transform:rotate(180deg)}
+#mod-c .dsx>summary:focus-visible{outline:2px solid var(--st-primary);outline-offset:2px;border-radius:8px}
+#mod-c .debtcard:has(.dsx:not([open])){padding-bottom:6px}
 </style>
 </head>
 <body>
@@ -2889,7 +2899,7 @@ ROOT.addEventListener('click',function(ev){
   var b=ev.target.closest('[data-acc]'); if(!b)return;
   var tab=b.dataset.acc, id=b.dataset.id;
   OPEN[tab]=(OPEN[tab]===id)?null:id;
-  if(OPEN[tab]&&tab==='history')window.SoTien.opened('b');
+  if(OPEN[tab]&&(tab==='history'||tab==='report'))window.SoTien.opened('b');
   if(tab==='contrib'){resetCForm();resetEForm()}
   if(tab==='report')renderReport(); else if(tab==='history')renderHistory(); else renderAcc(tab);
   if(OPEN[tab]){var row=ROOT.querySelector((tab==='report'?'#rBody':tab==='history'?'#hAll':'#acc-'+tab)+' .arow[data-open="true"]'); if(row)row.scrollIntoView({behavior:'smooth',block:'nearest'})}
@@ -3547,13 +3557,13 @@ window.SoTien.sync();
     pays.forEach(function (p) { var a = +p.amt || 0; if (String(p.from || '').trim() === String(p.to || '').trim()) return; add(p.from, a); add(p.to, -a); });
     var rows = settleNeat(net), a = 0, b = 0, tot = {};
     rows.forEach(function (t) { if (isMe(t.to)) a += t.amt; if (isMe(t.from)) b += t.amt; tot[t.from] = (tot[t.from] || 0) + t.amt; });
-    // Tôi trả đứng đầu, kế đến những người trả cho tôi, sau cùng là người khác; số lớn đứng trên,
-    // các dòng của cùng một người trả nằm liền nhau.
-    function rank(t) { return isMe(t.from) ? 0 : (isMe(t.to) ? 1 : 2); }
+    // Đối soát: người trả cho tôi đứng đầu (lớn → bé), kế đến tôi trả người khác (bé → lớn),
+    // sau cùng là người khác trả cho nhau (lớn → bé).
+    function rank(t) { return isMe(t.to) ? 0 : (isMe(t.from) ? 1 : 2); }
     rows.sort(function (x, y) {
       var r = rank(x) - rank(y); if (r) return r;
-      if (rank(x) === 2 && x.from !== y.from) return (tot[y.from] - tot[x.from]) || x.from.localeCompare(y.from);
-      return (y.amt - x.amt) || x.to.localeCompare(y.to);
+      if (rank(x) === 1) return (x.amt - y.amt) || x.to.localeCompare(y.to);
+      return (y.amt - x.amt) || x.from.localeCompare(y.from) || x.to.localeCompare(y.to);
     });
     return { rows: rows, a: a, b: b };
   }
@@ -3588,10 +3598,11 @@ window.SoTien.sync();
     var bills = store.get(KEY_BILLS, []), pays = store.get(KEY_PAYS, []);
     var my = myBalances(bills, pays), plan = meBalances(bills, pays).rows;
     // Phần 1: tôi nợ ai, ai nợ tôi (nợ trực tiếp). Phần 2: ai trả cho ai sau khi gộp nợ qua lại của cả nhóm.
-    var mine = my.iOwe.map(function (x) {
-      return '<div class="rline"><div class="top"><div class="pname"><span class="tag owe">Tôi nợ</span>' + esc(x.name) + '</div><div class="amt owe">' + k(x.amt) + '</div></div></div>';
-    }).concat(my.owedToMe.map(function (x) {
+    // Người nợ tôi trước, rồi tới tôi nợ; mỗi nhóm xếp số tiền từ lớn đến bé.
+    var mine = my.owedToMe.map(function (x) {
       return '<div class="rline"><div class="top"><div class="pname"><span class="tag get">Nợ tôi</span>' + esc(x.name) + '</div><div class="amt get">' + k(x.amt) + '</div></div></div>';
+    }).concat(my.iOwe.map(function (x) {
+      return '<div class="rline"><div class="top"><div class="pname"><span class="tag owe">Tôi nợ</span>' + esc(x.name) + '</div><div class="amt owe">' + k(x.amt) + '</div></div></div>';
     }));
     // Nếu cách trả gọn nhất trùng khít với nợ trực tiếp của tôi thì khỏi lặp lại.
     function key(f, t, a) { return f + '' + t + '' + Math.round(a * 10); }
@@ -3608,7 +3619,7 @@ window.SoTien.sync();
       '<div class="kpis"><div class="kpi owe"><div class="lbl">Tôi nợ</div><div class="v owe">' + k(my.b) + '</div></div>' +
       '<div class="kpi get"><div class="lbl">Người khác nợ tôi</div><div class="v get">' + k(my.a) + '</div></div></div>' +
       (mine.length ? '<div class="dc-me">' + mine.join('') + '</div>' : '') +
-      (arrows.length ? '<div class="dc-sub">Ai trả cho ai</div><div class="dgrid">' + arrows.join('') + '</div>' : '') +
+      (arrows.length ? '<details class="dsx"><summary><b>Đối soát</b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="dgrid">' + arrows.join('') + '</div></details>' : '') +
       (!mine.length && !arrows.length ? '<div class="empty">Không còn khoản nợ nào</div>' : '') + '</div>';
   }
   function renderSummary() {
@@ -3772,7 +3783,8 @@ window.SoTien.sync();
   setSummaryRange('all');
   syncDates();
   window.SoTien.onPeriod(function () { renderHistory(); renderDebt(); renderSummary(); });
-  window.SoTien.reg('c', { hist: function (s) { $('#acc-bills').open = s === 'bill'; $('#acc-pays').open = s === 'no'; }, pay: fillWho, collapse: function () { $$('details.acc').forEach(function (x) { x.open = false; }); if (openBill || pendingDelete || pendingPay) { openBill = null; pendingDelete = null; pendingPay = null; renderHistory(); renderDebt(); } } });
+  ROOT.addEventListener('toggle', function (e) { var d = e.target; if (d && d.classList && d.classList.contains('dsx') && d.open) window.SoTien.opened('c'); }, true);
+  window.SoTien.reg('c', { hist: function (s) { $('#acc-bills').open = s === 'bill'; $('#acc-pays').open = s === 'no'; }, pay: fillWho, collapse: function () { $$('details.acc, details.dsx').forEach(function (x) { x.open = false; }); if (openBill || pendingDelete || pendingPay) { openBill = null; pendingDelete = null; pendingPay = null; renderHistory(); renderDebt(); } } });
   window.SoTien.sync();
 })();
 </script>
