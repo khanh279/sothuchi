@@ -58,4 +58,4 @@ Vào **Thiết lập → Sao lưu và dữ liệu** để lưu một file chứa
 
 ## Cập nhật app
 
-Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v39'` (ví dụ thành `v40`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
+Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v40'` (ví dụ thành `v41`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
