@@ -6,8 +6,8 @@ Một sổ duy nhất cho chi tiêu cá nhân, quỹ nhóm, chia bill và trả 
 
 Thanh dưới cùng có ba mục:
 
-- **Tổng quan:** chọn thời gian xem (Tháng, Năm, Tất cả, Tuỳ chọn), số tiền đã chi, khung Nợ (ai nợ tôi, tôi nợ ai; bấm **Đối soát** để xem ai trả cho ai), các bill, số dư từng quỹ và chi tiêu cá nhân theo mục.
-- **Lịch sử:** chọn thời gian ở trên, rồi chọn một trong bốn ô Cá nhân, Quỹ, Chia bill, Trả nợ. Bấm vào từng khoản để sửa hoặc xoá.
+- **Tổng quan:** chọn thời gian xem (Tháng, Năm, Tất cả, Tuỳ chọn), số tiền đã chi, số dư quỹ (dòng nhỏ ở đáy thẻ Đã chi, chỉ để xem, luôn tính từ trước đến nay; nhiều hơn 4 quỹ thì hiện 3 quỹ có số dư lớn nhất và gộp phần còn lại thành "+N quỹ"), khung Nợ (ai nợ tôi, tôi nợ ai; bấm **Đối soát** để xem ai trả cho ai), các bill và chi tiêu cá nhân theo mục.
+- **Lịch sử:** chọn thời gian ở trên, rồi chọn một trong bốn ô Cá nhân, Quỹ, Chia bill, Trả nợ; dòng chữ nhỏ dưới tiêu đề ghi khoảng thời gian đang xem. Các khoản xếp theo ngày. Chạm một khoản chi tiêu hoặc trả nợ để sửa hoặc xoá; chạm một bill để xem chi tiết, rồi bấm Sửa hoặc Xóa.
 - **Thiết lập:** ngân sách chi tiêu hàng tháng, danh sách người, các mục chi tiêu, sao lưu và dữ liệu.
 
 Ở trang Tổng quan và Lịch sử có hai nút nổi:
@@ -15,16 +15,19 @@ Thanh dưới cùng có ba mục:
 - **+ Chi tiêu** (bên phải): nhập khoản chi cá nhân; đổi sang ô Quỹ ở đầu trang để nhập khoản chi của quỹ.
 - **+ Quỹ, bill, nợ** (bên trái): Đóng quỹ, Chia bill, Trả nợ; mở lại đúng ô đang dùng lần trước.
 
-Mỗi lần mở, app luôn vào trang Tổng quan.
+Mỗi lần mở, app luôn vào trang Tổng quan. Từ trang nhập, nút Back của điện thoại đưa về trang vừa xem. Bấm Sửa một khoản trong Lịch sử, lưu hoặc huỷ xong app tự quay lại đúng chỗ đang xem. Chạm lại biểu tượng của trang đang đứng để cuộn về đầu trang.
 
 Vài điểm nên biết:
 
 - Dòng "Còn lại" và "mỗi ngày chi được khoảng" trên thẻ Đã chi chỉ hiện khi đã đặt ngân sách tháng trong Thiết lập.
 - Danh sách người trong Thiết lập dùng để chọn thành viên khi chia bill, trả nợ và chọn nhanh khi đóng quỹ. Ở Đóng quỹ có thể gõ tên bất kỳ; tên tự gõ chỉ lưu trong khoản đóng đó.
-- Phần "Đối soát" là cách trả gọn nhất để mọi người hết nợ, mỗi người chỉ trả một lần, nên đôi khi một người vừa nhận vừa trả.
-- Số tiền ở quỹ, bill và nợ nhập theo nghìn đồng (k); chi tiêu cá nhân nhập theo đồng.
+- Phần "Đối soát" là danh sách ai trả cho ai để cả nhóm hết nợ. Nếu nợ trực tiếp đã gọn thì giữ nguyên ai nợ ai trả người đó; nếu có người phải trả nhiều nơi thì app gộp nợ để mỗi người chỉ trả một lần, nên đôi khi một người vừa nhận vừa trả. Các dòng "Nợ tôi / Tôi nợ" phía trên lấy từ chính danh sách này nên luôn khớp với Đối soát.
+- Mọi số tiền trong app đều hiển thị theo đồng (₫). Khi nhập, quỹ, bill và nợ gõ theo nghìn (ô nhập có sẵn đuôi ".000 ₫", gõ 50 là 50.000 ₫); chi tiêu cá nhân gõ đủ số đồng, có nút nhập nhanh +5k đến +500k.
+- Chia bill: mỗi dòng gồm tên, số tiền đóng và hệ số; chuyển sang trả cố định thì ô nhập mức cố định hiện ngay bên dưới.
+- Ở Tổng quan, số dư từng quỹ hiện nhỏ ở cuối khung tổng chi (tối đa 4 quỹ, quỹ còn lại gộp thành "+N quỹ"; chạm vào đó để xem tất cả, chạm "Thu gọn" để thu lại).
+- Khi nhập bill, bấm ô mục chi (dưới ô nội dung) để chọn mục như chi tiêu cá nhân. Chi tiêu cá nhân từ bill được ghi theo tiền thật sự bạn bỏ ra: phần bạn tự trả cho mình được ghi ngay ngày của bill (tên "… (chia bill)"); phần bạn còn nợ người khác chỉ được ghi khi bạn trả qua Đối soát, theo ngày trả (tên "Trả …"). Dòng chữ nhỏ dưới mỗi khoản ghi rõ bill nào (tên, ngày, tổng, phần của bạn); Lịch sử → Trả nợ cũng ghi khoản trả đó trả cho bill nào. Tiền người khác trả lại bạn và phần trả dư chuyển hộ người khác không tính là chi tiêu. Sửa / xoá bill hoặc khoản trả nợ thì các khoản này tự cập nhật.
 - Khi nhập bill, nút nhỏ bên trái ô chia của mỗi người đổi giữa "×" (chia theo hệ số) và "=" (trả một mức cố định, phần còn lại chia cho những người khác).
-- Trong **Đối soát**, bấm vào một dòng để ghi thanh toán: bấm "Trả hết" hoặc nhập số tiền rồi bấm Lưu. Khoản này được lưu vào Lịch sử → Trả nợ (ghi chú "Đối soát"), sửa hoặc xoá ở đó như mọi khoản trả nợ khác.
+- Trong **Đối soát**, bấm vào một dòng để ghi thanh toán: bấm "Toàn bộ" hoặc nhập số tiền rồi bấm Lưu. Khoản này được lưu vào Lịch sử → Trả nợ (ghi chú "Đối soát"), sửa hoặc xoá ở đó như mọi khoản trả nợ khác.
 
 ## Đưa lên GitHub Pages
 
@@ -55,4 +58,4 @@ Vào **Thiết lập → Sao lưu và dữ liệu** để lưu một file chứa
 
 ## Cập nhật app
 
-Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v14'` (ví dụ thành `v15`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
+Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v31'` (ví dụ thành `v32`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
