@@ -1,6 +1,6 @@
 {
-  "name": "Sổ tiền",
-  "short_name": "Sổ tiền",
+  "name": "Sổ Thu Chi",
+  "short_name": "Sổ Thu Chi",
   "description": "Theo dõi chi tiêu cá nhân, quản lý quỹ nhóm và chia bill trong một app.",
   "lang": "vi",
   "start_url": "./",

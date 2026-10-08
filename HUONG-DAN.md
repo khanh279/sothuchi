@@ -1,4 +1,4 @@
-# Sổ tiền
+# Sổ Thu Chi
 
 Một sổ duy nhất cho chi tiêu cá nhân, quỹ nhóm, chia bill và trả nợ. Cài được lên màn hình chính và dùng được khi mất mạng.
 
@@ -36,7 +36,7 @@ Vài điểm nên biết:
 3. Vào **Settings → Pages**, chọn **Deploy from a branch**, nhánh `main`, thư mục `/ (root)`, rồi bấm **Save**.
 4. Chờ khoảng một phút, mở `https://<tên-tài-khoản>.github.io/so-tien/`.
 
-Nếu đã đưa bản Sổ tiền cũ lên rồi, chỉ cần tải đè các file mới lên đúng repository đó; điện thoại sẽ tự lấy bản mới ở lần mở kế tiếp (có thể phải đóng app rồi mở lại một lần).
+Nếu đã đưa bản Sổ Thu Chi cũ lên rồi, chỉ cần tải đè các file mới lên đúng repository đó; điện thoại sẽ tự lấy bản mới ở lần mở kế tiếp (có thể phải đóng app rồi mở lại một lần).
 
 ## Cài lên điện thoại
 
@@ -45,11 +45,11 @@ Nếu đã đưa bản Sổ tiền cũ lên rồi, chỉ cần tải đè các f
 
 ## Dữ liệu từ ba app cũ
 
-Sổ tiền dùng lại đúng chỗ lưu của ba app cũ (Sổ Chi Tiêu, Quỹ nhóm, Chia Bill), nên:
+Sổ Thu Chi dùng lại đúng chỗ lưu của ba app cũ (Sổ Chi Tiêu, Quỹ nhóm, Chia Bill), nên:
 
 - **Mở bằng Safari/Chrome ở cùng địa chỉ `<tên-tài-khoản>.github.io`:** dữ liệu cũ tự hiện ra, không phải làm gì.
 - **Bản cài ở màn hình chính iPhone** có kho dữ liệu riêng cho từng app, nên cần chuyển tay:
-  - Quỹ nhóm, Chia Bill: trong app cũ bấm sao lưu/xuất dữ liệu để sao chép, rồi trong Sổ tiền vào **Thiết lập → Sao lưu và dữ liệu → Khôi phục**, dán vào và bấm **Khôi phục**.
+  - Quỹ nhóm, Chia Bill: trong app cũ bấm sao lưu/xuất dữ liệu để sao chép, rồi trong Sổ Thu Chi vào **Thiết lập → Sao lưu và dữ liệu → Khôi phục**, dán vào và bấm **Khôi phục**.
   - Sổ Chi Tiêu cũ không có nút sao lưu, nên các khoản đã ghi trong bản cài ở màn hình chính không chuyển sang được bằng cách này.
 
 ## Sao lưu
@@ -58,4 +58,4 @@ Vào **Thiết lập → Sao lưu và dữ liệu** để lưu một file chứa
 
 ## Cập nhật app
 
-Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v31'` (ví dụ thành `v32`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
+Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v33'` (ví dụ thành `v34`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.

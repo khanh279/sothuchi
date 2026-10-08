@@ -1,13 +1,13 @@
-// Sổ tiền: chạy được khi mất mạng.
+// Sổ Thu Chi: chạy được khi mất mạng.
 // Mỗi lần sửa index.html, tăng số phiên bản dưới đây để điện thoại tải bản mới.
-const CACHE = 'so-tien-v31';
+const CACHE = 'so-tien-v33';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', e => {
-  // Chỉ dọn bộ nhớ đệm cũ của chính Sổ tiền, không đụng tới app khác chung tên miền.
+  // Chỉ dọn bộ nhớ đệm cũ của chính Sổ Thu Chi, không đụng tới app khác chung tên miền.
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith('so-tien-') && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
 self.addEventListener('fetch', e => {
