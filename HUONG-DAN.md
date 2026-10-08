@@ -22,7 +22,7 @@ Vài điểm nên biết:
 - Dòng "Còn lại" và "mỗi ngày chi được khoảng" trên thẻ Đã chi chỉ hiện khi đã đặt ngân sách tháng trong Thiết lập.
 - Danh sách người trong Thiết lập dùng để chọn thành viên khi chia bill, trả nợ và chọn nhanh khi đóng quỹ. Ở Đóng quỹ có thể gõ tên bất kỳ; tên tự gõ chỉ lưu trong khoản đóng đó.
 - Phần "Đối soát" là danh sách ai trả cho ai để cả nhóm hết nợ. Nếu nợ trực tiếp đã gọn thì giữ nguyên ai nợ ai trả người đó; nếu có người phải trả nhiều nơi thì app gộp nợ để mỗi người chỉ trả một lần, nên đôi khi một người vừa nhận vừa trả. Các dòng "Nợ tôi / Tôi nợ" phía trên lấy từ chính danh sách này nên luôn khớp với Đối soát.
-- Mọi số tiền trong app đều hiển thị theo đồng (₫). Khi nhập, quỹ, bill và nợ gõ theo nghìn (ô nhập có sẵn đuôi ".000 ₫", gõ 50 là 50.000 ₫); chi tiêu cá nhân gõ đủ số đồng, có nút nhập nhanh +5k đến +500k.
+- Mọi số tiền trong app đều hiển thị theo đồng (₫). Khi nhập, quỹ, bill và nợ gõ theo nghìn (ô nhập có sẵn đuôi ".000 ₫" và tự thêm dấu chấm hàng nghìn, gõ 7000 hiện 7.000 tức 7.000.000 ₫); chi tiêu cá nhân gõ đủ số đồng, có nút nhập nhanh +5k đến +500k.
 - Chia bill: mỗi dòng gồm tên, số tiền đóng và hệ số; chuyển sang trả cố định thì ô nhập mức cố định hiện ngay bên dưới.
 - Ở Tổng quan, số dư từng quỹ hiện nhỏ ở cuối khung tổng chi (tối đa 4 quỹ, quỹ còn lại gộp thành "+N quỹ"; chạm vào đó để xem tất cả, chạm "Thu gọn" để thu lại).
 - Khi nhập bill, bấm ô mục chi (dưới ô nội dung) để chọn mục như chi tiêu cá nhân. Chi tiêu cá nhân từ bill được ghi theo tiền thật sự bạn bỏ ra: phần bạn tự trả cho mình được ghi ngay ngày của bill (tên "… (chia bill)"); phần bạn còn nợ người khác chỉ được ghi khi bạn trả qua Đối soát, theo ngày trả (tên "Trả …"). Dòng chữ nhỏ dưới mỗi khoản ghi rõ bill nào (tên, ngày, tổng, phần của bạn); Lịch sử → Trả nợ cũng ghi khoản trả đó trả cho bill nào. Tiền người khác trả lại bạn và phần trả dư chuyển hộ người khác không tính là chi tiêu. Sửa / xoá bill hoặc khoản trả nợ thì các khoản này tự cập nhật.
@@ -58,4 +58,4 @@ Vào **Thiết lập → Sao lưu và dữ liệu** để lưu một file chứa
 
 ## Cập nhật app
 
-Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v33'` (ví dụ thành `v34`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
+Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v39'` (ví dụ thành `v40`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
