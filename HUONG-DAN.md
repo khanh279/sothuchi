@@ -31,6 +31,17 @@ Vài điểm nên biết:
 - Khi nhập bill, bấm ô mục chi (dưới ô nội dung) để chọn mục như chi tiêu cá nhân. Phần bạn tự trả cho mình trong bill được ghi vào chi tiêu cá nhân ngay ngày của bill. Mỗi lần bạn trả qua Chi tiết (nợ), đúng số tiền đã trả được ghi vào chi tiêu cá nhân theo ngày trả. Trong lịch sử chi tiêu cá nhân, các khoản này ghi tên bill ở dòng trên, dòng nhỏ dưới ghi ngắn gọn: "Chia bill 05/10 · 3 người" (phần bạn tự trả trong bill; nếu lúc đó mới trả trước một phần thì hàng dưới ghi "Trả trước …"), "Trả Tùng · bill 06/10" (bạn trả nợ bill cho Tùng), hoặc "Trả nợ · ngoài bill" (khoản trả không thuộc bill nào, mục Khác). Tiền người khác trả lại bạn không tính là chi tiêu. Sửa / xoá bill hoặc khoản trả nợ thì các khoản này tự cập nhật.
 - Khoản trả ở khung Nợ và các khoản Chuyển tiền đều nằm trong lịch sử giao dịch (bấm khung Giao dịch ở Tổng quan), ghi rõ loại (Chuyển tiền, Trả nợ, Thanh toán bill · tên bill…); chạm vào để sửa hoặc xoá.
 
+
+## Chi tiêu cá nhân tự ghi
+- Lưu bill: phần bạn tự trả cho mình (số nhỏ hơn giữa tiền bạn chi và phần của bạn), theo ngày và mục của bill.
+- Trả tiền bill cho người khác (Trả từng bill, Thanh toán toàn bộ, Một phần, chuyển tiền khi đang nợ bill): ghi theo **ngày trả**, đúng mục của bill, và chỉ ghi đúng phần thật sự trừ vào bill (trả dư không tính). Tổng chi tiêu của một bill không bao giờ vượt quá phần của bạn.
+- Trừ vào nợ: phần bill bạn phải trả, theo ngày bấm trừ.
+- Đóng quỹ: phần bạn đóng ghi vào mục **Quỹ**, theo ngày đóng.
+- Không tính chi tiêu: cho vay, trả lại khoản đã vay, tiền nhận về, người khác trả cho nhau, chi quỹ.
+- Chuyển tiền cho người bạn còn nợ bill: trừ vào bill trước (cũ nhất trước), phần dư mới là cho vay.
+- Chia bill chỉ chọn 6 mục: Ăn uống, Giải trí, Du lịch, Di chuyển, Hoá đơn, Khác (bảng ô biểu tượng như chi tiêu cá nhân). Bảng tính bill ghi +/− cho Nhận lại / Còn thiếu. Lịch sử bill: khoản đã trả bị gạch ngang.
+- Hai người khác thanh toán toàn bộ cho nhau: lưu một giao dịch tổng "Thanh toán bill tháng …".
+
 ## Đưa lên GitHub Pages
 
 1. Tạo một repository mới trên GitHub (để Public), ví dụ `so-tien`.
@@ -60,4 +71,4 @@ Vào **Thiết lập → Sao lưu và dữ liệu** để lưu một file chứa
 
 ## Cập nhật app
 
-Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v92'` (ví dụ thành `v93`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
+Sau khi sửa `index.html`, mở `sw.js` và tăng số phiên bản ở dòng `const CACHE = 'so-tien-v94'` (ví dụ thành `v95`). Điện thoại sẽ tải bản mới ở lần mở kế tiếp.
